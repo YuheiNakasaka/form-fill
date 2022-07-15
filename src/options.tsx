@@ -2,68 +2,53 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 const Options = () => {
-  const [color, setColor] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
-  const [like, setLike] = useState<boolean>(false);
+  const [status, setStatus] = useState("");
+  const [formSettingText, setFormSettingText] = useState("{}");
 
   useEffect(() => {
-    // Restores select box and checkbox state using the preferences
-    // stored in chrome.storage.
     chrome.storage.sync.get(
       {
-        favoriteColor: "red",
-        likesColor: true,
+        formSetting: "{}",
       },
       (items) => {
-        setColor(items.favoriteColor);
-        setLike(items.likesColor);
+        setStatus(`init: ${JSON.stringify(items)}`);
+        setFormSettingText(items.formSetting);
       }
     );
   }, []);
 
+  const setSettingText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormSettingText(e.target.value);
+  };
+
   const saveOptions = () => {
-    // Saves options to chrome.storage.sync.
     chrome.storage.sync.set(
       {
-        favoriteColor: color,
-        likesColor: like,
+        formSetting: formSettingText,
       },
       () => {
-        // Update status to let user know options were saved.
-        setStatus("Options saved.");
-        const id = setTimeout(() => {
-          setStatus("");
-        }, 1000);
-        return () => clearTimeout(id);
+        setStatus(`Saved: ${formSettingText}`);
+        setFormSettingText(formSettingText);
       }
     );
   };
 
   return (
     <>
-      <div>
-        Favorite color: <select
-          value={color}
-          onChange={(event) => setColor(event.target.value)}
-        >
-          <option value="red">red</option>
-          <option value="green">green</option>
-          <option value="blue">blue</option>
-          <option value="yellow">yellow</option>
-        </select>
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={like}
-            onChange={(event) => setLike(event.target.checked)}
+      <div style={{ width: "100%" }}>
+        <section>
+          <h2>Edit Form Setting</h2>
+          <textarea
+            placeholder="Input valid json"
+            value={formSettingText}
+            onChange={setSettingText}
           />
-          I like colors.
-        </label>
+        </section>
+        <section>{status}</section>
+        <section>
+          <button onClick={saveOptions}>Save</button>
+        </section>
       </div>
-      <div>{status}</div>
-      <button onClick={saveOptions}>Save</button>
     </>
   );
 };
