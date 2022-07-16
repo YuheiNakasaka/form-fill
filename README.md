@@ -4,6 +4,8 @@
 
 This is a Chrome Extension to fill html forms efficiently.
 
+[Demo Form](https://docs.google.com/forms/d/e/1FAIpQLSd1z-AY1R_cEkLPhqMBUQQfL4XqG6Jz1EWAUzRE1Sa5wk3iHg/viewform)
+
 https://user-images.githubusercontent.com/1421093/179355981-2729be7c-7552-4217-a9a2-1dc809997dc2.mp4
 
 ## Form Data Format
