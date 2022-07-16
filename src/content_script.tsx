@@ -44,6 +44,12 @@ const fillForm = (inputItem: InputItem) => {
       element.click();
       triggerEvent(element);
     }
+  } else {
+    const element = getElement<HTMLInputElement>(inputItem);
+    if (element) {
+      element.click();
+      triggerEvent(element);
+    }
   }
 };
 
