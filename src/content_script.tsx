@@ -1,15 +1,4 @@
-type FormItem = {
-  id: string;
-  name: string;
-  url: string;
-  inputItems: InputItem[];
-};
-
-type InputItem = {
-  type: string;
-  selector: string;
-  value: string;
-};
+import { InputItem } from "./models/form";
 
 // Trigger event to pass the validation of the general forms.
 function triggerEvent(element: HTMLInputElement | HTMLSelectElement): void {
@@ -59,21 +48,18 @@ const fillForm = (inputItem: InputItem) => {
 };
 
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.formSetting) {
-    const formSetting = JSON.parse(msg.formSetting);
-    const formItems = formSetting.formItems as FormItem[];
-    if (formItems && formItems.length > 0) {
-      for (let i = 0; i < formItems.length; i++) {
-        const formItem = formItems[i];
-        const inputItems = formItem.inputItems;
+  try {
+    if (msg.type === "fillForm") {
+      if (msg.inputItems) {
+        const inputItems = msg.inputItems as InputItem[];
         for (let j = 0; j < inputItems.length; j++) {
           const inputItem = inputItems[j];
           fillForm(inputItem);
         }
+        sendResponse(`true`);
       }
     }
-    sendResponse(`true`);
-  } else {
-    sendResponse("false");
+  } catch (e) {
+    sendResponse(`${e}`);
   }
 });
