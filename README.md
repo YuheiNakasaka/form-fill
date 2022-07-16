@@ -2,13 +2,42 @@
 
 ![build](https://github.com/YuheiNakasaka/form-fill/workflows/build/badge.svg)
 
-## TODO
+## Form Data Format
 
-- [x] フォーム入力情報を JSON で設定する
-  - [x] フォーム入力情報は複数持つことができる
-  - [x] CRUD ができる
-- [x] 設定された JSON から特定のタブのフォームに入力する
-- [ ] JSON は export/import ができる
+### Field
+
+- `formItems[]`: Forms(exp. Personal Informaion).
+  - `id`: Random text. Not allowed to duplicate in the FormItems.
+  - `name`: FormItem name.
+  - `inputItems[]`: Form item's type, selector and value
+    - `type`: text | radio | checkbox | select
+    - `selector`: Any selector of accepted in `document.querySelector(selector)`
+    - `value`: string
+
+### Example
+
+```json
+{
+  "formItems": [
+    {
+      "id": "abcdefghij",
+      "name": "Test Form",
+      "inputItems": [
+        {
+          "type": "text",
+          "selector": "#email_input_form",
+          "value": "test@example.com"
+        },
+        {
+          "type": "radio",
+          "selector": "#subscription_radio_true",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## Prerequisites
 
