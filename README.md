@@ -2,6 +2,10 @@
 
 ![build](https://github.com/YuheiNakasaka/form-fill/workflows/build/badge.svg)
 
+This is a Chrome Extension to fill html forms efficiently.
+
+https://user-images.githubusercontent.com/1421093/179355981-2729be7c-7552-4217-a9a2-1dc809997dc2.mp4
+
 ## Form Data Format
 
 ### Field

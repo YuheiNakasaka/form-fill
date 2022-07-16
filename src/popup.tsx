@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { jsonExample } from "./data/example";
 import { FormItem } from "./models/form";
 
 const ListItem = ({ formItem }: { formItem: FormItem }) => {
@@ -53,7 +54,7 @@ const Popup = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        formSetting: "{}",
+        formSetting: jsonExample,
       },
       (items) => {
         const formSetting = JSON.parse(items.formSetting);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { jsonExample } from "./data/example";
 
 type StatusObject = {
   type: string;
@@ -13,7 +14,7 @@ const Options = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        formSetting: "{}",
+        formSetting: jsonExample,
       },
       (items) => {
         setFormSettingText(items.formSetting);
