@@ -15,7 +15,7 @@ https://user-images.githubusercontent.com/1421093/179355981-2729be7c-7552-4217-a
   - `name`: FormItem name.
   - `inputItems[]`: Form item's type, selector and value
     - `type`: text | radio | checkbox | select
-    - `selector`: Any selector of accepted in `document.querySelector(selector)`
+    - `selector`: Any selector accepted in `document.querySelector(selector)`
     - `value`: string
 
 ### Example
