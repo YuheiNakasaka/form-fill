@@ -1,15 +1,15 @@
-name: Releases
+name: tag
 
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - main
+    paths:
+      - public/manifest.json
 
 jobs:
-  build:
+  tag:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 16.x
@@ -25,8 +25,19 @@ jobs:
           path: "dist"
           filename: "release.zip"
           exclusions: "*.git* /*node_modules/* .editorconfig"
+      - uses: salsify/action-detect-and-tag-new-version@v2
+        id: detect_tag
+        with:
+          create-tag: false
+          version-command: cat public/manifest.json | jq -r .version
+      - uses: mathieudutour/github-tag-action@v5.6
+        with:
+          custom_tag: ${{ steps.detect_tag.outputs.current-version }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.detect_tag.outputs.previous-version != steps.detect_tag.outputs.current-version }}
       - name: Upload Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "release.zip"
+          tag: ${{ steps.detect_tag.outputs.current-version }}
           token: ${{ secrets.GITHUB_TOKEN }}
