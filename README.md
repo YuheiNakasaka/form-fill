@@ -14,7 +14,7 @@ This is a Chrome Extension to fill html forms efficiently.
 2. Extract `release.zip`.
 3. Add the extracted `dist` folder into `chrome://extensions/`.
 
-- [Releases](https://github.com/YuheiNakasaka/form-fill/tags)
+- [Releases](https://github.com/YuheiNakasaka/form-fill/releases)
 
 ## Form Data Format
 
