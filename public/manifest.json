@@ -3,7 +3,7 @@
 
   "name": "FormFill",
   "description": "Fill forms with data from json",
-  "version": "0.1.2",
+  "version": "0.1.1",
 
   "options_ui": {
     "page": "options.html"
