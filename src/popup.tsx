@@ -52,7 +52,7 @@ const Popup = () => {
   const [formItems, setFormItems] = useState<FormItem[]>([]);
 
   useEffect(() => {
-    chrome.storage.sync.get(
+    chrome.storage.local.get(
       {
         formSetting: jsonExample,
       },

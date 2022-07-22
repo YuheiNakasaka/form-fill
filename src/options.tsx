@@ -12,7 +12,7 @@ const Options = () => {
   const [formSettingText, setFormSettingText] = useState("{}");
 
   useEffect(() => {
-    chrome.storage.sync.get(
+    chrome.storage.local.get(
       {
         formSetting: jsonExample,
       },
@@ -37,16 +37,23 @@ const Options = () => {
 
   const saveOptions = () => {
     if (isValidJson(formSettingText)) {
-      chrome.storage.sync.set(
+      chrome.storage.local.set(
         {
           formSetting: formSettingText,
         },
         () => {
-          setStatus({
-            type: "success",
-            message: "Saved!",
-          });
-          setFormSettingText(formSettingText);
+          if (chrome.extension.lastError !== undefined) {
+            setStatus({
+              type: "fail",
+              message: `Error: ${chrome.extension.lastError}`,
+            });
+          } else {
+            setStatus({
+              type: "success",
+              message: "Saved!",
+            });
+            setFormSettingText(formSettingText);
+          }
           setTimeout(() => setStatus(null), 1000);
         }
       );
